@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  # Bootstrap Server
+    config.vm.define "vm-control-node" do |control|
+      control.vm.box = "ubuntu/focal64"
+      control.vm.hostname = "vm-control-node"
+      control.vm.network "private_network", ip: "192.168.55.105"
+      control.vm.provider "virtualbox" do |v|
+        v.name = "vm-control-node"
+        v.memory = 1024
+        v.cpus = 1
+      end
+    # Run VM preparation script.
+      control.vm.provision "shell", path: "prepare_control_node.sh"  
+    end  
+
+  # Host VMs
+  Count = 3
+  (1..Count).each do |i|
+    config.vm.define "vm-#{i}" do |infra|
+      infra.vm.box = "ubuntu/focal64"
+      infra.vm.hostname = "vm-#{i}"
+      infra.vm.network "private_network", ip: "192.168.55.10#{i}"
+      infra.vm.provider "virtualbox" do |v|
+        v.name = "vm-#{i}"
+        v.memory = 1024
+        v.cpus = 1
+      end
+      infra.vm.provision "shell", path: "prepare_vms.sh"
+    end
+  end
+
+end

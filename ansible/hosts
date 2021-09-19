@@ -1,0 +1,4 @@
+[webservers]
+192.168.55.101 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+192.168.55.102 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+192.168.55.103 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
