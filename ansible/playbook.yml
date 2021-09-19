@@ -16,11 +16,6 @@
   become: yes
   
   tasks:
-  - name: Install SSHPASS
-    apt:
-      name: sshpass
-      state: present
-
   - name: Install Nginx 
     apt:
       name: nginx
